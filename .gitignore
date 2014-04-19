@@ -195,7 +195,6 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
-_posts/*.html
 *.html
 !_layouts/*.html
 !_includes/*.html
