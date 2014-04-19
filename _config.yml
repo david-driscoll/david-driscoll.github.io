@@ -6,13 +6,13 @@ pygments:         true
 permalink:        pretty
 
 # Setup
-title:            Adventures of a Cold Coder
+title:            Subzero Coding
 tagline:          'A canadian coding away in the deep south!'
 description:      'Description goes here.'
 url:              https://david-driscoll.github.io/
 
 author:
-  name:           'Mark Otto'
+  name:           'David Driscoll'
   url:            http://blacklite.ca
 
 paginate:         10
