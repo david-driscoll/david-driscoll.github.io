@@ -1,0 +1,24 @@
+# Dependencies
+markdown:         redcarpet
+pygments:         true
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            Adventures of a Cold Coder
+tagline:          'A canadian coding away in the deep south!'
+description:      'Description goes here.'
+url:              https://david-driscoll.github.io/
+
+author:
+  name:           'Mark Otto'
+  url:            http://blacklite.ca
+
+paginate:         10
+
+# Custom vars
+version:          2.0.0
+
+github:
+  repo:           https://github.com/david-driscoll/david-driscoll.github.io
