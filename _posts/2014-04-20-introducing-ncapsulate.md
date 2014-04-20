@@ -6,7 +6,7 @@ comments: true
 ---
 
 ![logo](https://raw.githubusercontent.com/Blacklite/NCapsulate/master/logo-large.png)
-https://github.com/Blacklite/Ncapsulate
+[https://github.com/Blacklite/Ncapsulate]
 
 Ncapsulate is a NuGet wrapper for NodeJS and libraries of the Node Ecosystem.  Such tools currently include Bower, Gulp, Grunt, Npm, Karma, and support is easy to add for more.  Ncapsulate allows Front-end Developers to bring the Node Ecosystem into the .NET world without making your manager freak out at having to add "yet another tool" for everyone to install and work with.
 
@@ -40,12 +40,13 @@ Want need configurable task runner?  Combine [Gulp](gulp) or [Grunt](grunt) with
 ## How to use Ncapsulate?
 Pretty simple, using Nuget of course!
 
-![Nuget Search](/public/introducing-ncapsulate/2014-04-20%2000_01_41-ncapsulate.example%20-%20manage%20nuget%20packages.png)
+![Nuget Search](/public/introducing-ncapsulate/2014-04-20 00_01_41-NCapsulate.Example - Manage NuGet Packages.png)
 Install like any other Nuget Dependendency!
 
-<span style="float:left">
+<span style="float:left;margin-right: 8px;">
     <img src="/public/introducing-ncapsulate/2014-04-20 00_12_43-master-NCapsulate.Example.png" />
 </span>
+
 Once installed you'll see some new files in your solution, these can be excluded from the solution if you have no need for them.  Keep in mind the .cmd files must still be checked into your source control solution for Ncapsulate's tooling to work correctly.
 
 The .targets are completely optional but they are Ncapsulates default integration point with the specific node tool.  For Npm it will install and update your dependencies, same for Bower.  For Gulp and Grunt you can link certian tasks to a specific phase of the build.  You can compile your JavaScript `BeforeBuild` and run your Unit Tests with Karma `AfterBuild`.
