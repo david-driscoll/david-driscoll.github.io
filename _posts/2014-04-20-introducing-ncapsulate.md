@@ -3,10 +3,11 @@ layout: post
 title: Introducing Ncapsulate
 tags: ncapsulate node .net c# nuget
 comments: true
+image: https://raw.githubusercontent.com/Blacklite/NCapsulate/master/logo.png
 ---
 
 ![logo](https://raw.githubusercontent.com/Blacklite/NCapsulate/master/logo-large.png)
-[https://github.com/Blacklite/Ncapsulate]
+[https://github.com/Blacklite/Ncapsulate](https://github.com/Blacklite/Ncapsulate)
 
 Ncapsulate is a NuGet wrapper for NodeJS and libraries of the Node Ecosystem.  Such tools currently include Bower, Gulp, Grunt, Npm, Karma, and support is easy to add for more.  Ncapsulate allows Front-end Developers to bring the Node Ecosystem into the .NET world without making your manager freak out at having to add "yet another tool" for everyone to install and work with.
 
