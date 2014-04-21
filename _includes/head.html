@@ -29,7 +29,7 @@
 
     <link rel="openid2.provider" href="https://www.google.com/accounts/o8/ud" />
     <link rel="openid2.local_id" href="https://www.google.com/+DavidDriscoll1985" />
-    
+
     <!-- Metadata -->
     <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.title }} &middot; {{ site.tagline }}{% endif %}" />
     <meta name="keywords" content="{{ page.tags }}" />
@@ -44,7 +44,7 @@
     {% endif %}
     <meta property="og:url" content="http://www.blacklite.ca{{ page.url }}" />
     <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.title }} &middot; {{ site.tagline }}{% endif %}" />
-    
+
     <meta name="twitter:title" content="{{ page.title }} &middot; {{ site.title }}">
     <meta name="twitter:card" content="summary">
     {% if page.image %}
@@ -52,4 +52,18 @@
     {% endif %}
     <meta name="twitter:url" content="http://www.blacklite.ca{{ page.url }}">
     <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.title }} &middot; {{ site.tagline }}{% endif %}">
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-23953551-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
 </head>
