@@ -15,7 +15,7 @@ title: Home
             <span itemprop="datePublished">{{ post.date | date_to_string }}</span>
             <span class="comments"><a href="#disqus_thread">comments</a></span>
         </span>
-        <div itemprop="articleBody">{{ post.content | truncatewords:150 | strip_html }}</div>
+        <div itemprop="articleBody">{{ post.content }}</div>
     </div>
     {% endfor %}
 </div>
