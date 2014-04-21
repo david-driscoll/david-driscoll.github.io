@@ -115,12 +115,12 @@ a.sidebar-nav-item:focus {
     display: inline-block;
     height: 32px;
     width: 32px;
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: -1px;
+    margin-right: -1px;
     -ms-border-radius: 32px;
     border-radius: 32px;
-    -ms-opacity: 0.6;
-    opacity: 0.6;
+    -ms-opacity: 0.5;
+    opacity: 0.5;
     -webkit-transition: all ease-out 0.3s;
     -moz-transition: all ease-out 0.3s;
     -ms-transition: all ease-out 0.3s;
@@ -131,8 +131,6 @@ a.sidebar-nav-item:focus {
 .sidebar-social .icon:hover {
     -ms-opacity: 1;
     opacity: 1;
-    margin-left: 3px;
-    margin-right: 3px;
 }
 
 .sidebar-social > li {
@@ -164,11 +162,6 @@ a.sidebar-nav-item:focus {
     background-color: #007FB1;
 }
 
-.icon.github {
-    background-image: url(/public/social/github-32.png);
-    background-color: #4183C4;
-}
-
 .icon.stackoverflow {
     background-image: url(/public/social/stackoverflow-32.png);
     background-color: #F47920;
@@ -177,6 +170,11 @@ a.sidebar-nav-item:focus {
 .icon.coderbits {
     background-image: url(/public/social/coderbits-32.png);
     background-color: #F16522;
+}
+
+.icon.rss {
+    background-image: url(/public/social/rss-32.png);
+    background-color: #FF8300;
 }
 
 /* Sticky sidebar
