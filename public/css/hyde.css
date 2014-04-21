@@ -113,9 +113,26 @@ a.sidebar-nav-item:focus {
 
 .sidebar-social .icon {
     display: inline-block;
-    height: 48px;
-    width: 48px;
-    border-radius: 48px;
+    height: 32px;
+    width: 32px;
+    margin-left: 0;
+    margin-right: 0;
+    -ms-border-radius: 32px;
+    border-radius: 32px;
+    -ms-opacity: 0.6;
+    opacity: 0.6;
+    -webkit-transition: all ease-out 0.3s;
+    -moz-transition: all ease-out 0.3s;
+    -ms-transition: all ease-out 0.3s;
+    -o-transition: all ease-out 0.3s;
+    transition: all ease-out 0.3s;
+}
+
+.sidebar-social .icon:hover {
+    -ms-opacity: 1;
+    opacity: 1;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 .sidebar-social > li {
@@ -123,42 +140,42 @@ a.sidebar-nav-item:focus {
 }
 
 .icon.github {
-    background-image: url(/public/social/github-48.png);
+    background-image: url(/public/social/github-32.png);
     background-color: #4183C4;
 }
 
 .icon.twitter {
-    background-image: url(/public/social/twitter-48.png);
+    background-image: url(/public/social/twitter-32.png);
     background-color: #00ACED;
 }
 
 .icon.facebook {
-    background-image: url(/public/social/facebook-48.png);
+    background-image: url(/public/social/facebook-32.png);
     background-color: #3B5998;
 }
 
 .icon.googleplus {
-    background-image: url(/public/social/googleplus-48.png);
+    background-image: url(/public/social/googleplus-32.png);
     background-color: #D14836;
 }
 
 .icon.linkedin {
-    background-image: url(/public/social/linkedin-48.png);
+    background-image: url(/public/social/linkedin-32.png);
     background-color: #007FB1;
 }
 
 .icon.github {
-    background-image: url(/public/social/github-48.png);
+    background-image: url(/public/social/github-32.png);
     background-color: #4183C4;
 }
 
 .icon.stackoverflow {
-    background-image: url(/public/social/stackoverflow-48.png);
+    background-image: url(/public/social/stackoverflow-32.png);
     background-color: #F47920;
 }
 
 .icon.coderbits {
-    background-image: url(/public/social/coderbits-48.png);
+    background-image: url(/public/social/coderbits-32.png);
     background-color: #F16522;
 }
 
@@ -325,4 +342,8 @@ a.sidebar-nav-item:focus {
 #disqus_thread {
     margin-left: 20rem;
     margin-right: 2rem;
+}
+
+.comments {
+    margin-left: 8px;
 }

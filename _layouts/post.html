@@ -5,8 +5,8 @@ layout: default
 <div class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
     <h1 class="post-title" itemprop="name">{{ page.title }}</h1>
     <span class="post-metadata" itemprop="datePublished">
-        <span itemprop="datePublished">{{ page.date | date_to_string }}</span>
-        <span class="comments"><a href="#disqus_thread">comments</a></span>
+        <span class="fa fa-calendar-o"></span> <span itemprop="datePublished">{{ page.date | date_to_string }}</span>
+        <span class="comments"><span class="fa fa-comments-o"></span> <a href="#disqus_thread"></a></span>
     </span>
     <div itemprop="articleBody">{{ content }}</div>
 </div>
