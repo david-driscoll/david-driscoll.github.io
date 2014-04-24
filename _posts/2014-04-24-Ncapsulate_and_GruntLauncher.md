@@ -1,3 +1,10 @@
+---
+layout: post
+title: Ncapsulate and Grunt Launcher
+tags: ncapsulate node .net c# nuget gruntlauncher grunt gruntjs visx visualstudio
+comments: true
+image: https://raw.githubusercontent.com/Blacklite/NCapsulate/master/logo.png
+---
 The other weekend I created what soon Ncapsulate, a nuget wrapper for all things node.  Then I got to thinking what about GUI?  Right now there is not good GUI for the tools that Ncapsulate exposes.  We integrate very well with MSBuild, but what if we have a build task that only needs to happen periodically?  Maybe you have a task that automates the update process, for example it will locate and find the latest version of all the bower packages, and then run through the update process for each package, and then rerun your unit tests.  Typically you wouldn't want to do this as part of the build, but it is a task that you want to be able to run, and you infact want everyone to be able to run easily.
 
 
