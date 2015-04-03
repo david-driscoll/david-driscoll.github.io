@@ -30,6 +30,7 @@ public class MyController {
 ```
 
 You write code like...
+
 ```csharp
 public class MyController {
     private readonly DbContext _context;
@@ -106,6 +107,7 @@ As part of your application you are going to have to register your services.  Th
 In this brave new world :earth_americas: you "Pay-for-Play".  That means that by default no services.  No mvc, No routing, etc.  To start using a new library, you have to specifically include those services.  When consuming library services, the current convention is to use an extension method on the `IServicesCollection` interface.
 
 To use Mvc you have to add the Mvc services.  This applies to all sorts of other libraries as well, such as Entity Framework, etc.
+
 ```csharp
 public void ConfigureServices(IServiceCollection services) {
     ...
@@ -116,6 +118,7 @@ public void ConfigureServices(IServiceCollection services) {
 ```
 
 To add your own service to the services collection you can call various other methods on it.
+
 ```csharp
 public void ConfigureServices(IServiceCollection services) {
     services.AddTransient<IInterface, MyClass>();
@@ -194,17 +197,19 @@ These special methods are designed such that you can avoid directly using `IServ
 
 * The `Startup.Configure` method is one such method.<br/>
 This allows you to inject services that you need to configure your pipeline.
+
 ```csharp
 public void Configure(IApplicationBuilder app, IServiceA serviceA) { ... }
 ```
+
 * Middleware is another.<br />
 This allows you to include scoped services.
+
 ```csharp
 public void Configure(IApplicationBuilder app, IServiceA serviceA) {
     app.Run<IServiceA>((httpContext, serviceA) => { ... });
 }
-```
-```csharp
+// OR
 public class MyMiddleware {
     public RequestServicesContainerMiddleware(RequestDelegate next, IServiceA service) {}
     public async Task Invoke(HttpContext httpContext, IScopedService scopedService) {
