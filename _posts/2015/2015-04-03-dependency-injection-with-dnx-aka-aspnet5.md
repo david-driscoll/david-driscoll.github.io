@@ -24,6 +24,14 @@ public class MyController {
     }
 }
 
+// OR
+public class MyController {
+    private readonly DbContext _context;
+    public MyController(DbContext context) {
+        _context = context;
+    }
+}
+
 // Somewhere else
 new MyController();
 ```
@@ -39,7 +47,7 @@ public class MyController {
 }
 
 // Somewhere else
-serviceProvider.GetService<MyController>();
+serviceProvider.GetService<MyController>(); // Or service location is done for you elsewhere...
 ```
 
 What [Inversion of Control](http://en.wikipedia.org/wiki/Inversion_of_control) means is that your class no longer needs to understand how to construct it's dependencies.  Instead the Container will hand you a list of dependencies for you to use.
