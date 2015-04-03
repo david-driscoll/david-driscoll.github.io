@@ -12,7 +12,7 @@ Traditionally in AspNet applications Dependency Injection was fairly hard to pul
 If you've lived under a rock, or in the past you heard the words "XML Configuration" and promptly ran away :scream: (I don't blame you) then you might not know what Dependency Injection is about.
 
 [Wikipedia](http://en.wikipedia.org/wiki/Dependency_injection) tells us...
-> In software engineering, dependency injection is a software design pattern that implements inversion of control for software libraries. Caller delegates to an external framework the control flow of discovering and importing a service or software module.
+> In software engineering, dependency injection is a software design pattern that implements **inversion of control** for software libraries. Caller delegates to an external framework the control flow of discovering and importing a service or software module.
 
 In a nut shell what it means is that instead of writing code like...
 
@@ -23,6 +23,9 @@ public class MyController {
         _context = new DbContext();
     }
 }
+
+// Somewhere else
+new MyController();
 ```
 
 You write code like...
@@ -34,6 +37,9 @@ public class MyController {
         _context = context;
     }
 }
+
+// Somewhere else
+serviceProvider.GetService<MyController>();
 ```
 
 What [Inversion of Control](http://en.wikipedia.org/wiki/Inversion_of_control) means is that your class no longer needs to understand how to construct it's dependencies.  Instead the Container will hand you a list of dependencies for you to use.
