@@ -207,6 +207,11 @@ img {
   max-width: 100%;
 }
 
+img.emoji {
+    display: inline-block;
+    margin: 0;
+}
+
 /* Tables */
 table {
   margin-bottom: 1rem;
