@@ -7,7 +7,9 @@ comments: true
 
 # Dependency Injection with DNX
 
-Traditionally in AspNet applications Dependency Injection was fairly hard to pull off, and even harder to pull off properly.  In fact it usually felt a little like pulling teeth with a sledge hammer :hammer:.
+Traditionally in AspNet applications Dependency Injection was fairly hard to pull off, and even harder to pull off properly.  In fact it usually felt a little like pulling teeth with a sledge hammer :hammer:.  Welcome to the new world with [DNX](https://github.com/aspnet/dnx).  Not only is .NET going [Cross-Platform](https://github.com/aspnet/home#os-xlinux) but Dependency Injection is now a first class citizen!
+
+
 
 
 ## What is Dependency Injection?
@@ -73,20 +75,20 @@ public static class Bootstrapper {
 }
 ```
 
-You have to build the container, setup the static resolver using the container, and things get worse when you want inject services into an `IHttpModule` or `IHttpHandler`.  Basically it's a lot of hoops.  It was never really fun or intuitive.  In fact it wasn't part of the original design of AspNet, so it was tacked on after, which made things very coupled.
+You have to build the container, setup the static resolver using the container, and things get worse when you want inject services into an `IHttpModule` or `IHttpHandler`.  Basically it's a lot of hoops.  It was never really fun or intuitive.  In fact it wasn't part of the original design of AspNet, so it was tacked on after AspNet was built.
 
 
 ## What Dependency Injection looks like in DNX
 If you do not already know DNX is the new execution environment, standing for ".NET Execution" or ".NET Cross Platform".  It is the system that loads (or compiles) your code and hosts it.
 
-As part of this new environment Dependency Injection is included as a first class citizen.  Almost all of the internal code is constructed using a simple, no fancy pants, lightweight dependency injection container.  This means as soon as you start to write your code you can begin to use Dependency Injection.
+As part of this new environment Dependency Injection is included as a first class citizen.  Almost all of the internal code is constructed using a simple, no fancy pants :jeans:, lightweight :cloud: dependency injection container.  This means as soon as you start to write your code you can begin to use Dependency Injection.  :boom:
 
 ### Service Location
-Dependency Injection in DNX is based around using [Service Location](ServiceLocation).  While service location is useful, it is generally frowned upon using it when you don't need to.  When you use service location by itself, instead of using constructor injection, it tends to lead toward code that is harder to maintain, understand and unit test properly.
+Dependency Injection in DNX is based around using [Service Location](ServiceLocation).  While service location is useful, it is generally frowned upon using it when you don't need to, instead you use something like Constructor Injection.  When you use service location by itself, instead of using constructor injection, it tends to lead toward code that is harder to maintain, understand and unit test properly.
 
 > The service locator pattern is a design pattern used in software development to encapsulate the processes involved in obtaining a service with a strong abstraction layer. This pattern uses a central registry known as the "service locator", which on request returns the information necessary to perform a certain task.
 
-The AspNet team is using the existing [IServiceProvider](ServiceProvider) Interface, which offers the method `GetService(Type type)`.  Ask it for your type, and it will return an instance of that service.
+The AspNet team is using the existing [IServiceProvider](ServiceProvider) Interface, which offers the method `GetService(Type type)`.  Ask it for your type, and it will return an instance of that service (:warning: or null if no type is registered).
 
 The first place you can encounter `IServiceProvider` is on `IApplicationBuilder` of your `Startup` class.
 
@@ -101,12 +103,13 @@ public void Configure(IApplicationBuilder app) {
 ### Configuring Services
 As part of your application you are going to have to register your services.  This can be achieved by adding items to the `IServiceCollection`.
 
-In the new world, the team is calling the new model `Pay-for-play`.  That means that by default no services.  To start using a new library, you have to specifically include those services.  When consuming library services, the convention is to use an extension method on the `IServicesCollection` interface.
+In this brave new world :earth_americas: you "Pay-for-Play".  That means that by default no services.  No mvc, No routing, etc.  To start using a new library, you have to specifically include those services.  When consuming library services, the current convention is to use an extension method on the `IServicesCollection` interface.
 
-To use mvc you have to add the Mvc services.  This applies to all sorts of other libraries as well, such as Entity Framework, etc.
+To use Mvc you have to add the Mvc services.  This applies to all sorts of other libraries as well, such as Entity Framework, etc.
 ```csharp
 public void ConfigureServices(IServiceCollection services) {
     ...
+    // Add Mvc services to the collection
     services.AddMvc();
     ...
 }
@@ -122,18 +125,18 @@ public void ConfigureServices(IServiceCollection services) {
 This will add `IInterface` to the service collection.
 
 #### Lifecycles
-When you configure your services, you can give them a specific lifecycle.  This lifecycle is controlled by the container.
+Every object has a finite lifetime.  Sometimes it lives for the entire life of your application, like a static singleton.  Sometimes you want a new item each and every time to work with.  Other times you want the same item for an http request.  Same can be done with Dependency Injection, you just have to tell the container what the intended lifetime is.
 
 * Singleton<br />
   These services will be constructed once, and from that point forward any other request for this service will return the same instance.  It is like the traditional static singleton instance pattern.
-* Scoped<br />
-  These services will generally be constructed once per request (there are other use cases).
-* Transient<br />
-  These services will be constructed every time they are requested.  Just like calling `new Service()`
 * Instance<br />
   These services are registered with a specific instance, this is the singleton pattern, but the instance is constructed ahead of time.
+* Scoped<br />
+  These services will generally be constructed once per request, such as a common database context.
+* Transient<br />
+  These services will be constructed every time they are requested.  Just like calling `new Service()`
 
-#### Factory Method
+#### Factories
 When configuring your services, you can also use a factory pattern to construct your dependencies.  The same potential problems with using Service Location can come into play, so if you don't need the factory method, you probably shouldn't use it.
 
 ```csharp
@@ -143,16 +146,17 @@ public void ConfigureServices(IServiceCollection services) {
 ```
 
 #### Generic Types
-With DNX you can register generic types as well.  This allows you to do things like the Repository Pattern.  Inside AspNet5 there are examples of this being used for the new [Options](https://github.com/aspnet/Options) library.
+With DNX you can register both open and closed generic types as well.  This allows you to do things like the Repository Pattern.  Inside AspNet5 there are examples of this being used for the new [Options](https://github.com/aspnet/Options) library.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services) {
     services.AddTransient(typeof(IRepository<>), typeof(RepositoryImpl<>));
+    services.AddTransient(typeof(IConfigureOptions<MvcOptions>), typeof(MyMvcConfiguration));
 }
 ```
 
 ### Special Types
-There is also a class of special generic types, that will resolve intelligently for you as well.  Currently the only type that works for the simple container is `IEnumerable<>`.  This works muhc like the generic type resolution, but in this case it instead returns you an enumerable of *all* of the types that have been registered for that interface.  This is useful when you may have more than one implementation of a given interface.
+There is also a class of special generic types, that will resolve intelligently for you as well.  Currently the only type that works for the simple container is `IEnumerable<>`.  This works much like the generic type resolution, but in this case it instead returns you an enumerable of *all* of the types that have been registered for that interface.  This is useful when you may have more than one implementation of a given interface.
 
 ```csharp
 public class StrategyProvider {
@@ -165,7 +169,7 @@ public class StrategyProvider {
 }
 ```
 
-Some other Dependency Injection containers also support injecting values of `Lazy<>` or `Func<>` but for the simple container built into DNX these are not supported out of the box.  You are able to use your other container with DNX based applications, such as [Autofac](http://alexmg.com/autofac-4-0-alpha-1-for-asp-net-5-0-beta-3/).
+Some other Dependency Injection containers also support injecting values of `Lazy<>` or `Func<>` but for the simple container built into DNX these are not supported out of the box.  You are able to use any other container with DNX based applications, such as [Autofac](http://alexmg.com/autofac-4-0-alpha-1-for-asp-net-5-0-beta-3/).
 
 
 
@@ -180,15 +184,15 @@ public class MyService {
 }
 ```
 
-In the above example, the container will return instances of `IServiceA`, `IServiceB` and `IServiceC`.  There is no knowledge of the lifecycle by my service.
+In the above example, the container will return instances of `IServiceA`, `IServiceB` and `IServiceC`.  There is no knowledge of the lifecycle by `MyService`.
 
 
 ### Injectables
-There is a different kind of method that I like to call "Injectable".  These methods allow you to add on additional parameters, and those parameters will be injected by the DI container.  These are special methods, and only these special methods are treated this way.
+There is a different kind of method that I like to call "Injectable".  These methods allow you to addon additional parameters, and those parameters will be injected by the DI container.  These are special :snowflake: methods.
 
 These special methods are designed such that you can avoid directly using `IServiceProvider` on the `IApplicationBuilder` or your middleware.  To avoid the pitfalls with just using Service Location.
 
-* The `Startup.Configure` method is on such method.<br/>
+* The `Startup.Configure` method is one such method.<br/>
 This allows you to inject services that you need to configure your pipeline.
 ```csharp
 public void Configure(IApplicationBuilder app, IServiceA serviceA) { ... }
@@ -208,6 +212,27 @@ public class MyMiddleware {
     }
 }
 ```
+
+
+### Using your own DI Container
+Yes you can! In fact it super easy to use your own container or implement your own `ISeviceProvider`.  The easiest way is to modify your `Startup.ConfigureServices` method to return `IServiceProvider`.  This is the Service Provider that is attached with your application builder, and used from that point forward.  An example for how Autofac does it, is below.  Also in this example, you can now use `Lazy<>` or `Func<>` in your service dependencies.
+
+```csharp
+public IServiceProvider ConfigureServices(IServiceCollection services) {
+    ...
+    var builder = new ContainerBuilder();
+    builder.Populate(services);
+    var container = builder.Build();
+    return container.Resolve<IServiceProvider>();
+}
+```
+
+
+### FIN
+I hope you enjoyed your brief look at Dependency Injection with DNX, and hope you gained some valuable knowledge!
+
+If you notice anything is wrong :interrobang:, not explained well enough, or you have additional questions, please feel free to leave a comment or reach out on [Jabbr](https://jabbr.net/) ( #AspNetvNext ) or [Twitter](https://twitter.com/david_blacklite).
+
 
 [source]: http://www.asp.net/mvc/overview/older-versions/hands-on-labs/aspnet-mvc-4-dependency-injection "Asp.Net Dependency Injection Tutorial"
 [Wikipedia]: http://en.wikipedia.org/wiki/Dependency_injection "Dependency Injection"
