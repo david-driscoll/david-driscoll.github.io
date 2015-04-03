@@ -11,8 +11,8 @@ Traditionally in AspNet applications Dependency Injection was fairly hard to pul
 ## What is Dependency Injection?
 If you've lived under a rock, or in the past you heard the words "XML Configuration" and promptly ran away :scream: (I don't blame you) then you might not know what Dependency Injection is about.
 
-[Wikipedia] tells us...
-> In software engineering, dependency injection is a software design pattern that implements inversion of control for software libraries. Caller delegates to an external framework the control flow of discovering and importing a service or software module. Dependency injection allows a program design to follow the dependency inversion principle where modules are loosely coupled. With dependency injection, the client part of a program which uses a module or service doesn't need to know all its details, and typically the module can be replaced by another one of similar characteristics without altering the client.
+[Wikipedia](http://en.wikipedia.org/wiki/Dependency_injection) tells us...
+> In software engineering, dependency injection is a software design pattern that implements inversion of control for software libraries. Caller delegates to an external framework the control flow of discovering and importing a service or software module.
 
 In a nut shell what it means is that instead of writing code like...
 
@@ -36,7 +36,7 @@ public class MyController {
 }
 ```
 
-What [Inversion of Control](IoC) means is that your class no longer needs to understand how to construct it's dependencies.  Instead the Container will hand you a list of dependencies for you to use.
+What [Inversion of Control](http://en.wikipedia.org/wiki/Inversion_of_control) means is that your class no longer needs to understand how to construct it's dependencies.  Instead the Container will hand you a list of dependencies for you to use.
 
 At first you'll be scared :scream: or perhaps even angry :angry:.  There are advantages to entering this brave new world.  
 
@@ -53,7 +53,7 @@ There are also some disadvantages to this brave new world... :disappointed:
 
 
 ## What Dependency Injection looks like today
-It looked something a little like the following<sup>[[source](source)]</sup>:
+It looked something a little like the following<sup>[[source](http://www.asp.net/mvc/overview/older-versions/hands-on-labs/aspnet-mvc-4-dependency-injection)]</sup>:
 
 ```csharp
 public static class Bootstrapper {
@@ -78,14 +78,14 @@ You have to build the container, setup the static resolver using the container, 
 ## What Dependency Injection looks like in DNX
 If you do not already know DNX is the new execution environment, standing for ".NET Execution" or ".NET Cross Platform".  It is the system that loads (or compiles) your code and hosts it.
 
-As part of this new environment Dependency Injection is included as a first class citizen.  Almost all of the internal code is constructed using a simple, no fancy pants :jeans:, lightweight :cloud: dependency injection container.  This means as soon as you start to write your code you can begin to use Dependency Injection.  :boom:
+As part of this new environment Dependency Injection is included as a first class citizen.  Almost all of the internal code is constructed using a simple, no fancy pants :jeans:, lightweight :cloud: dependency injection container.  This means as soon as you start to write your code you can begin to use Dependency Injection.
 
 ### Service Location
-Dependency Injection in DNX is based around using [Service Location](ServiceLocation).  While service location is useful, it is generally frowned upon using it when you don't need to, instead you use something like Constructor Injection.  When you use service location by itself, instead of using constructor injection, it tends to lead toward code that is harder to maintain, understand and unit test properly.
+Dependency Injection in DNX is based around using [Service Location](http://en.wikipedia.org/wiki/Service_locator_pattern).  While service location is useful, it is generally frowned upon using it when you don't need to, instead you use something like Constructor Injection.  When you use service location by itself, instead of using constructor injection, it tends to lead toward code that is harder to maintain, understand and unit test properly.
 
 > The service locator pattern is a design pattern used in software development to encapsulate the processes involved in obtaining a service with a strong abstraction layer. This pattern uses a central registry known as the "service locator", which on request returns the information necessary to perform a certain task.
 
-The AspNet team is using the existing [IServiceProvider](ServiceProvider) Interface, which offers the method `GetService(Type type)`.  Ask it for your type, and it will return an instance of that service (:warning: or null if no type is registered).
+The AspNet team is using the existing [IServiceProvider](https://msdn.microsoft.com/en-us/library/system.iserviceprovider(v=vs.110).aspx) Interface, which offers the method `GetService(Type type)`.  Ask it for your type, and it will return an instance of that service (:warning: or null if no type is registered).
 
 The first place you can encounter `IServiceProvider` is on `IApplicationBuilder` of your `Startup` class.
 
@@ -233,10 +233,3 @@ public IServiceProvider ConfigureServices(IServiceCollection services) {
 I hope you enjoyed your brief look at Dependency Injection with DNX, and hope you gained some valuable knowledge!
 
 If you notice anything is wrong :interrobang:, not explained well enough, or you have additional questions, please feel free to leave a comment or reach out on [Jabbr](https://jabbr.net/) ( #AspNetvNext ) or [Twitter](https://twitter.com/david_blacklite).
-
-
-[source]: http://www.asp.net/mvc/overview/older-versions/hands-on-labs/aspnet-mvc-4-dependency-injection "Asp.Net Dependency Injection Tutorial"
-[Wikipedia]: http://en.wikipedia.org/wiki/Dependency_injection "Dependency Injection"
-[IoC]: http://en.wikipedia.org/wiki/Inversion_of_control "Inversion of Control"
-[ServiceLocation]: http://en.wikipedia.org/wiki/Service_locator_pattern
-[ServiceProvider]: https://msdn.microsoft.com/en-us/library/system.iserviceprovider(v=vs.110).aspx
