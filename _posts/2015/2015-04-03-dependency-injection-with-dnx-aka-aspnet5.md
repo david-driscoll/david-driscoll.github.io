@@ -23,17 +23,6 @@ public class MyController {
         _context = new DbContext();
     }
 }
-
-// OR
-public class MyController {
-    private readonly DbContext _context;
-    public MyController(DbContext context) {
-        _context = context;
-    }
-}
-
-// Somewhere else
-new MyController();
 ```
 
 You write code like...
@@ -45,9 +34,6 @@ public class MyController {
         _context = context;
     }
 }
-
-// Somewhere else
-serviceProvider.GetService<MyController>(); // Or service location is done for you elsewhere...
 ```
 
 What [Inversion of Control](http://en.wikipedia.org/wiki/Inversion_of_control) means is that your class no longer needs to understand how to construct it's dependencies.  Instead the Container will hand you a list of dependencies for you to use.
@@ -94,23 +80,6 @@ If you do not already know DNX is the new execution environment, standing for ".
 
 As part of this new environment Dependency Injection is included as a first class citizen.  Almost all of the internal code is constructed using a simple, no fancy pants :jeans:, lightweight :cloud: dependency injection container.  This means as soon as you start to write your code you can begin to use Dependency Injection.
 
-### Service Location
-Dependency Injection in DNX is based around using [Service Location](http://en.wikipedia.org/wiki/Service_locator_pattern).  While service location is useful, it is generally frowned upon using it when you don't need to, instead you use something like Constructor Injection.  When you use service location by itself, instead of using constructor injection, it tends to lead toward code that is harder to maintain, understand and unit test properly.
-
-> The service locator pattern is a design pattern used in software development to encapsulate the processes involved in obtaining a service with a strong abstraction layer. This pattern uses a central registry known as the "service locator", which on request returns the information necessary to perform a certain task.
-
-The AspNet team is using the existing [IServiceProvider](https://msdn.microsoft.com/en-us/library/system.iserviceprovider(v=vs.110).aspx) Interface, which offers the method `GetService(Type type)`.  Ask it for your type, and it will return an instance of that service (:warning: or null if no type is registered).
-
-The first place you can encounter `IServiceProvider` is on `IApplicationBuilder` of your `Startup` class.
-
-```csharp
-public void Configure(IApplicationBuilder app) {
-    app.ApplicationServices.GetService(...);
-}
-```
-
-`IServiceProvider` is also available on `HttpContext.ApplicationServices` and also for request based services as `HttpContext.RequestServices`.  In the case of request services, this can be services that are different per-request (such as database sessions).
-
 ### Configuring Services
 As part of your application you are going to have to register your services.  This can be achieved by adding items to the `IServiceCollection`.
 
@@ -150,7 +119,7 @@ Every object has a finite lifetime.  Sometimes it lives for the entire life of y
   These services will be constructed every time they are requested.  Just like calling `new Service()`
 
 #### Factories
-When configuring your services, you can also use a factory pattern to construct your dependencies.  The same potential problems with using Service Location can come into play, so if you don't need the factory method, you probably shouldn't use it.
+When configuring your services, you can also use a factory pattern to construct your dependencies.  Factory methods are not the most optimal way to register services, the preferred style would to create a proper Factory Interface that Injects all the services you need to construct your instances.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services) {
@@ -183,7 +152,6 @@ public class StrategyProvider {
 ```
 
 Some other Dependency Injection containers also support injecting values of `Lazy<>` or `Func<>` but for the simple container built into DNX these are not supported out of the box.  You are able to use any other container with DNX based applications, such as [Autofac](http://alexmg.com/autofac-4-0-alpha-1-for-asp-net-5-0-beta-3/).
-
 
 
 ### Constructor Injection
@@ -228,7 +196,6 @@ public class MyMiddleware {
 }
 ```
 
-
 ### Using your own DI Container
 Yes you can! In fact it super easy to use your own container or implement your own `ISeviceProvider`.  The easiest way is to modify your `Startup.ConfigureServices` method to return `IServiceProvider`.  This is the Service Provider that is attached with your application builder, and used from that point forward.  An example for how Autofac does it, is below.  Also in this example, you can now use `Lazy<>` or `Func<>` in your service dependencies.
 
@@ -241,6 +208,22 @@ public IServiceProvider ConfigureServices(IServiceCollection services) {
     return container.Resolve<IServiceProvider>();
 }
 ```
+
+### Ripping back the curtain
+Dependency Injection in DNX is around using [Service Location](http://en.wikipedia.org/wiki/Service_locator_pattern).  While service location is useful, it is generally frowned upon using it when you don't need to, instead you use something like Constructor Injection.  When you use service location by itself, instead of using constructor injection, it tends to lead toward code that is harder to maintain, understand and unit test properly.  With `Constructor Injection` and `Injectables` you should never have to even know that Service Location exists.  If you are a library author understanding how things work, is also very helpful.
+
+The AspNet team is using the existing [IServiceProvider](https://msdn.microsoft.com/en-us/library/system.iserviceprovider(v=vs.110).aspx) Interface, which offers the method `GetService(Type type)`.  Ask it for your type, and it will return an instance of that service (:warning: or null if no type is registered).
+
+The first place you can encounter `IServiceProvider` is on `IApplicationBuilder` of your `Startup` class.
+
+```csharp
+public void Configure(IApplicationBuilder app) {
+    app.ApplicationServices.GetService(...);
+}
+```
+
+`IServiceProvider` is also available on `HttpContext.ApplicationServices` and also for request based services as `HttpContext.RequestServices`.  In the case of request services, this can be services that are different per-request (such as database sessions).
+
 
 
 ### FIN
