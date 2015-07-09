@@ -5,6 +5,7 @@ tags: aspnet aspnet5 aspnetvnext dnx coreclr di
 comments: true
 ---
 
+
 Traditionally in AspNet applications Dependency Injection was fairly hard to pull off, and even harder to pull off properly.  In fact it usually felt a little like pulling teeth with a sledge hammer :hammer:.  Welcome to the new world with [DNX](https://github.com/aspnet/dnx).  Not only is .NET going [Cross-Platform](https://github.com/aspnet/home#os-xlinux) but Dependency Injection is now a first class citizen!
 
 

@@ -1,12 +1,14 @@
-markdown:         redcarpet
-highlighter:      pygments
+markdown:         kramdown
+highlighter:
+#highlighter:      pygments
+
 
 # Permalinks
 permalink:        pretty
 
 # Setup
 title:            Iced Tea Programmer
-tagline:          It's warm down here...
+tagline:          It's warm down here... but the drinks are good!
 description:      Canadian in NC...
 url:              https://david-driscoll.github.io/
 
@@ -23,3 +25,4 @@ gems:
   - jemoji
   - jekyll-mentions
   - jekyll-sitemap
+  - jekyll-gist

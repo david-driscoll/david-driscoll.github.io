@@ -329,6 +329,15 @@ a.sidebar-nav-item:focus {
     color: #8f5536;
 }
 
+.float-image {
+    float: left;
+    padding: 0 1rem;
+}
+
+.break-image {
+    clear: left;
+}
+
 /* Disqus */
 #disqus_thread {
     margin-left: 20rem;
