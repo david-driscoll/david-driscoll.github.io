@@ -1,7 +1,5 @@
-markdown:         kramdown
-highlighter:
-#highlighter:      pygments
-
+markdown:         redcarpet
+highlighter:      pygments
 
 # Permalinks
 permalink:        pretty
