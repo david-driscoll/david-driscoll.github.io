@@ -38,6 +38,7 @@ Middleware is essentially a chain of callbacks, or a `pipeline`.  The callbacks 
 > If you have ever looked at NodeJS, several libraries have popularized the use of Middleware, [Connect](https://github.com/senchalabs/connect) and [Express](http://expressjs.com/).  A lot of what Asp.Net 5 does, is very similar in concept to the NodeJS way.
 
 Your callback can...
+
 * add HTTP Headers
 * modify the HTTP response
 * authenticate the user
