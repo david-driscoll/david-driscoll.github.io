@@ -1,37 +1,5 @@
----
-layout: default
-title: Home
----
-
-<div class="posts" itemscope itemtype="http://schema.org/Blog">
-    {% for post in paginator.posts %}
-    <div class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-        <h1 class="post-title" itemprop="name">
-            <a href="{{ post.url }}" itemprop="url">
-                {{ post.title }}
-            </a>
-        </h1>
-        <span class="post-metadata">
-            <span class="fa fa-calendar-o"></span> <span itemprop="datePublished">{{ post.date | date_to_string }}</span>
-            <span class="comments"><span class="fa fa-comments-o"></span> <a href="{{ post.url }}#disqus_thread"></a></span>
-        </span>
-        <div itemprop="articleBody">{{ post.content }}</div>
-    </div>
-    {% endfor %}
-</div>
-<div class="pagination">
-    {% if paginator.next_page %}
-    <a class="pagination-item older" href="/page{{paginator.next_page}}">Older</a>
-    {% else %}
-    <span class="pagination-item older">Older</span>
-    {% endif %}
-    {% if paginator.previous_page %}
-    {% if paginator.page == 2 %}
-    <a class="pagination-item newer" href="/">Newer</a>
-    {% else %}
-    <a class="pagination-item newer" href="/page{{paginator.previous_page}}">Newer</a>
-    {% endif %}
-    {% else %}
-    <span class="pagination-item newer">Newer</span>
-    {% endif %}
-</div>
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Redirecting to https://daviddriscoll.me</title>
+<meta http-equiv="refresh" content="0; URL=https://daviddriscoll.me" />
+<link rel="canonical" href="https://daviddriscoll.me" />
